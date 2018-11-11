@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">PopularMovies</string>
+    <string name="movie_image">Movie image</string>
+
+    <string name="top_rated">Show Top Rated</string>
+    <string name="popular">Show Popular</string>
+
+    <string name="data_update">Movies are already updated!</string>
+    <string name="no_data">No data available</string>
+    <string name="error_fetching_data">Error fetching data! Please check your connection.</string>
+
+    <string name="adult">Adult</string>
+</resources>

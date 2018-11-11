@@ -1,0 +1,71 @@
+apply plugin: 'com.android.application'
+apply from: '../dependencies.gradle'
+
+android {
+    compileSdkVersion versions.compilesdkversion
+    buildToolsVersion versions.buildtoolsversion
+    dataBinding {
+        enabled true
+    }
+    compileOptions {
+        sourceCompatibility versions.jdk8
+        targetCompatibility versions.jdk8
+    }
+    defaultConfig {
+        applicationId versions.appid
+        minSdkVersion versions.minsdkversion
+        targetSdkVersion versions.targetsdkversion
+        versionCode versions.versioncode
+        versionName versions.versionname
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        buildTypes.each {
+            it.buildConfigField "String", "apiUrl", "\"http://api.themoviedb.org\""
+            it.buildConfigField "String", "apiKey", "\"\""
+            it.buildConfigField "String", "imageUrl", "\"http://image.tmdb.org/t/p/w185\""
+        }
+        release {
+            minifyEnabled true
+            shrinkResources true
+            proguard_list.each { pro_guard ->
+                proguardFile pro_guard
+            }
+        }
+        debug {
+            minifyEnabled false
+            shrinkResources false
+            proguard_list.each { pro_guard ->
+                proguardFile pro_guard
+            }
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    //Android Support Libraries
+    implementation deps.support.appcompat
+    implementation deps.support.recyclerview
+
+    //Android Layouts
+    implementation deps.constraintlayout.core
+
+    // Retrofit and OkHttp
+    implementation deps.retrofit2.runtime
+    implementation deps.retrofit2.gson
+    implementation deps.retrofit2.rxadapter2
+
+    // RxJava2
+    implementation deps.rxjava2.core
+    implementation deps.rxandroid2.core
+
+    //Glide
+    implementation deps.glide.core
+
+    // Testing
+    testImplementation deps.junit.core
+    androidTestImplementation deps.testrunner.runner
+    androidTestImplementation deps.espresso.core
+}

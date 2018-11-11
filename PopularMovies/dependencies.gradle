@@ -1,0 +1,105 @@
+def versions = [:]
+versions.compilesdkversion                      = 28
+versions.buildtoolsversion                      = "28.0.3"
+versions.minsdkversion                          = 16
+versions.targetsdkversion                       = 28
+
+versions.versioncode                            = 1
+versions.versionname                            = "1.0"
+
+versions.jdk8                                   = JavaVersion.VERSION_1_8
+versions.appid                                  = "com.snehpandya.popularmovies"
+ext.versions = versions
+
+ext.deps = [:]
+
+def version = [:]
+version.gradleplugin                            = '3.2.1'
+version.gradleplugingoogleservices              = "4.0.1"
+
+version.support                                 = "28.0.0"
+version.googleplayservices                      = "15.0.1"
+
+version.constraintlayout                        = "1.1.1"
+
+version.testrunner                              = "1.0.2"
+version.espresso                                = "3.0.2"
+version.junit                                   = "4.12"
+
+version.rxjava2                                 = "2.1.14"
+version.rxandroid2                              = "2.0.2"
+
+version.retrofit2                               = "2.4.0"
+
+version.glide                                   = "4.7.1"
+
+def deps = [:]
+
+def support = [:]
+support.appcompat                               = "com.android.support:appcompat-v7:$version.support"
+support.recyclerview                            = "com.android.support:recyclerview-v7:$version.support"
+support.v4                                      = "com.android.support:support-v4:$version.support"
+deps.support = support
+
+def constraintlayout = [:]
+constraintlayout.core                           = "com.android.support.constraint:constraint-layout:$version.constraintlayout"
+deps.constraintlayout = constraintlayout
+
+def testrunner = [:]
+testrunner.runner                               = "com.android.support.test:runner:$version.testrunner"
+testrunner.rules                                = "com.android.support.test:rules:$version.testrunner"
+deps.testrunner = testrunner
+
+def espresso = [:]
+espresso.core                                   = "com.android.support.test.espresso:espresso-core:$version.espresso"
+deps.espresso = espresso
+
+def junit = [:]
+junit.core                                      = "junit:junit:$version.junit"
+deps.junit = junit
+
+def rxjava2 = [:]
+rxjava2.core                                    = "io.reactivex.rxjava2:rxjava:$version.rxjava2"
+deps.rxjava2 = rxjava2
+
+def rxandroid2 = [:]
+rxandroid2.core                                 = "io.reactivex.rxjava2:rxandroid:$version.rxandroid2"
+deps.rxandroid2 = rxandroid2
+
+def retrofit2 = [:]
+retrofit2.runtime                               = "com.squareup.retrofit2:retrofit:$version.retrofit2"
+retrofit2.gson                                  = "com.squareup.retrofit2:converter-gson:$version.retrofit2"
+retrofit2.rxadapter2                            = "com.squareup.retrofit2:adapter-rxjava2:$version.retrofit2"
+deps.retrofit2 = retrofit2
+
+def glide = [:]
+glide.core                                      = "com.github.bumptech.glide:glide:$version.glide"
+deps.glide = glide
+
+def gradleplugin = [:]
+gradleplugin.core                               = "com.android.tools.build:gradle:$version.gradleplugin"
+gradleplugin.googleservices                     = "com.google.gms:google-services:$version.gradleplugingoogleservices"
+deps.gradleplugin = gradleplugin
+
+ext.deps = deps
+
+def proguard_list = [
+        "$project.rootDir/settings/proguard/proguard-constraintlayout.pro",
+        "$project.rootDir/settings/proguard/proguard-glide.pro",
+        "$project.rootDir/settings/proguard/proguard-google-play-services.pro",
+        "$project.rootDir/settings/proguard/proguard-gson.pro",
+        "$project.rootDir/settings/proguard/proguard-project.pro",
+        "$project.rootDir/settings/proguard/proguard-rxjava-rxandroid.pro",
+        "$project.rootDir/settings/proguard/proguard-square-okio.pro",
+        "$project.rootDir/settings/proguard/proguard-square-retrofit2.pro",
+        "$project.rootDir/settings/proguard/proguard-support-v4.pro",
+        "$project.rootDir/settings/proguard/proguard-support-v7-appcompat.pro"
+]
+ext.proguard_list = proguard_list
+
+def addRepos(RepositoryHandler handler) {
+    handler.google()
+    handler.jcenter()
+    handler.maven { url 'https://oss.sonatype.org/content/repositories/snapshots' }
+}
+ext.addRepos = this.&addRepos
